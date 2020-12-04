@@ -1,6 +1,34 @@
 
-const regex = /^[+\-0|1().]+$/g;
+const regex = /^[+\-0|1().]+$/;
 
+const convertToNumber = (isSigned) => (binaryNum, signedMask) => {
+
+    binaryNum = binaryNum.toString();
+    if (!regex.test(binaryNum)) throw 'not a valid binary number';
+    
+    let binaryArray = binaryNum.split('').map(e => parseInt(e));
+
+    if (isSigned && (signedMask == null || signedMask == undefined)) {
+	signedMask = binaryArray.shift();
+    } else if (!isSigned) {
+	signedMask = 0;
+    }
+
+    let pivot = 0;
+    let finalNumber = 0;
+
+    while (binaryArray.length > 0) {
+	let binaryPos = Math.pow(2, pivot);
+	let binaryVal = binaryArray.pop();
+	finalNumber += binaryPos * (binaryVal ^ signedMask);
+
+	pivot++;
+    }
+
+    if (signedMask) finalNumber = (finalNumber +1) * -1;
+
+    return finalNumber;
+}
 
 const convertToBinary = (number) => {
     number = parseInt(number);
@@ -62,6 +90,8 @@ const getTwoBytesSignedBinary = (binNumber, signMask) => {
     return twoBytes;
 };
 
+module.exports.convertToNumber = convertToNumber;
+module.exports.convertToBinary = convetToBinary;
 
-let number = -300;
-console.log(convertToBinary(number));
+
+
