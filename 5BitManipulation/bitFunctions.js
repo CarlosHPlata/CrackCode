@@ -91,7 +91,7 @@ const getTwoBytesSignedBinary = (binNumber, signMask) => {
 };
 
 module.exports.convertToNumber = convertToNumber;
-module.exports.convertToBinary = convetToBinary;
+module.exports.convertToBinary = convertToBinary;
 
 
 
