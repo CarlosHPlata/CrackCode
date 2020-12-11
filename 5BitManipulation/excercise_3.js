@@ -16,17 +16,35 @@ const getLongestSequenceOfOnes = (number) => {
     let maxNumber = 1;
 
     while (number != 0) {
+	console.log('-=--------------');
+	console.log('');
+	console.log('number', number);
+	console.log('binary', convertToBinary(number).short);
+	console.log('previousMa',previousMax);
+	console.log('currentMax',currentMax);
+	console.log('maxNumber',maxNumber);
+	console.log('starting things');
+
 	if (number & 1 == 1) {
+	    console.log('bit is one');
 	    currentMax++;
 	} else {
+	    console.log('bit is 0');
 	    previousMax = number & 2 != 0? currentMax : 0;
 	    currentMax = 0;
 
+	    console.log(previousMax);
+	    console.log(currentMax);
+
 	    maxNumber = Math.max(maxNumber, currentMax + previousMax + 1);
+	    console.log(maxNumber);
 	}
 
 	number = number>>>1;
+	console.log('-=--------------');
     }
+
+    return maxNumber;
 
 };
 
@@ -34,4 +52,7 @@ const getLongestSequenceOfOnes = (number) => {
 //TESTING
 let x = 1775;
 console.log('the number is', x);
-console.log('in binary is:', 
+console.log('in binary is:', convertToBinary(x).short);
+
+let result = getLongestSequenceOfOnes(x);
+console.log('the result es:', result);
